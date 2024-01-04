@@ -19,7 +19,7 @@ public class GameManager : StateMachine, IGameObject
         
         RootGame = game;
         MapManager = new MapManager(RootGame.GraphicsDevice, RootGame.GraphicsDeviceManager);
-        Character = new Character(RootGame.Content.Load<Texture2D>("CharacterSheet"));
+        Character = new Character(RootGame.Content.Load<Texture2D>("CharacterSheet"), this);
         
         AddState(new MainMenuState());
         AddState(new PlayingState(this));
