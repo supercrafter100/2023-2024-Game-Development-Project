@@ -15,21 +15,22 @@ public class PlayingState : GameState
     
     protected override void OnActivate()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     protected override void OnDeactivate()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public override void OnUpdate(GameTime time)
     {
-
+        _manager.Character.Update(time);
     }
 
     public override void OnDraw(SpriteBatch batch)
     {
         _manager.MapManager.RenderTiles(batch);
+        _manager.Character.Draw(batch);
     }
 }

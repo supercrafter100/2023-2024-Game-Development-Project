@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using GameDevProject.utility.animation;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace GameDevProject.Core;
@@ -6,28 +7,23 @@ namespace GameDevProject.Core;
 public class Character : IGameObject
 {
     private Texture2D _texture;
-    private Rectangle _segmentRectangle;
-    private int _horizontalOffset = 0;
+    private Animation _animation;
 
     public Character(Texture2D texture)
     {
         _texture = texture;
-        _segmentRectangle = new Rectangle(_horizontalOffset, 0, 180, 247);
+        _animation = new Animation();
+        
+        _animation.AddFrames(AnimationUtility.GetFramesFromTextureProperties(_texture.Width, _texture.Height, 5, 2));
     }
     
     public void Update(GameTime time)
     {
-        _horizontalOffset += 180;
-        if (_horizontalOffset > 720)
-        {
-            _horizontalOffset = 0;          
-        }
-        _segmentRectangle.X = _horizontalOffset;
-
+        _animation.Update(time);
     }
 
     public void Draw(SpriteBatch spriteBatch)
     {
-        spriteBatch.Draw(_texture, new Vector2(0, 0), _segmentRectangle, Color.White);
+        spriteBatch.Draw(_texture, new Vector2(0, 0), _animation.CurrentFrame.SourceRectangle, Color.White);
     }
 }

@@ -13,6 +13,9 @@ public abstract class StateMachine: State
     #nullable enable
     public State? ActiveState { get; private set; } = null;
 
+    public String LogPrefix = "[SM]";
+    public bool LogChanges = false;
+
     public void AddState(State state)
     {
         state.StateMachine = this;
@@ -53,6 +56,7 @@ public abstract class StateMachine: State
     {
         if (ActiveState != null)
         {
+            Log($"Deactivated state {ActiveState.GetType().Name}");
             ActiveState.Deactivate();
         }
 
@@ -76,7 +80,8 @@ public abstract class StateMachine: State
             ContinueQueue();
             return;
         }
-        
+
+        Log($"Activated state {ActiveState.GetType().Name}");
         ActiveState.Activate();
     }
 
@@ -89,6 +94,7 @@ public abstract class StateMachine: State
     {
         if (ActiveState != null)
         {
+            Log("Please call gotoNoState(true) to deactivate the current state in onDeactivate");
             GotoNoState(true);
         }
         else
@@ -98,4 +104,9 @@ public abstract class StateMachine: State
     }
 
     protected abstract void OnNoState();
+
+    private void Log(String msg)
+    {
+        if (LogChanges) Console.WriteLine($"{LogPrefix} {msg}");
+    }
 }

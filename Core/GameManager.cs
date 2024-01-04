@@ -14,8 +14,12 @@ public class GameManager : StateMachine, IGameObject
 
     public GameManager(Game1 game)
     {
+        LogPrefix = "[GM]";
+        LogChanges = true;
+        
         RootGame = game;
         MapManager = new MapManager(RootGame.GraphicsDevice, RootGame.GraphicsDeviceManager);
+        Character = new Character(RootGame.Content.Load<Texture2D>("CharacterSheet"));
         
         AddState(new MainMenuState());
         AddState(new PlayingState(this));
@@ -26,7 +30,7 @@ public class GameManager : StateMachine, IGameObject
     protected override void OnActivate()
     {
         // Go to the main menu
-        GoToState<MainMenuState>();
+        GoToState<PlayingState>();
         
         // Load in the maps
         MapManager.CreateLevelMap();
