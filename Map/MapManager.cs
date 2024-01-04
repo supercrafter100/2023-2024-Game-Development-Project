@@ -36,11 +36,9 @@ public class MapManager
 
         _tileWidth = deviceManager.PreferredBackBufferWidth / _horizontalTiles;
         _tileHeight = deviceManager.PreferredBackBufferHeight / _verticalTiles;
-        
-        CreateLevelMap();
     }
 
-    private void CreateLevelMap()
+    public void CreateLevelMap()
     {
         for (int y = 0; y < _verticalTiles; y++)
         {

@@ -1,4 +1,6 @@
-﻿namespace GameDevProject.utility.statemachine;
+﻿using Microsoft.Xna.Framework;
+
+namespace GameDevProject.utility.statemachine;
 
 public abstract class State
 {
@@ -34,6 +36,7 @@ public abstract class State
 
     public virtual void OnPreActivate() {}
     protected abstract void OnActivate();
+    public virtual void OnUpdate(GameTime time) {}
     public virtual void OnPreDeactivate() {}
     protected abstract void OnDeactivate();
     public virtual void OnLateDeactivate() {}
