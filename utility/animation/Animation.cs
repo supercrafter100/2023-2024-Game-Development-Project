@@ -6,44 +6,50 @@ namespace GameDevProject.utility.animation;
 public class Animation
 {
     public AnimationFrame CurrentFrame { get; set; }
-    private List<AnimationFrame> _frames;
+    public List<AnimationFrame> Frames;
     
-    private int _counter;
+    public int Counter;
     private double _secondCounter = 0;
     private int _fps;
 
     public Animation(int fps = 15)
     {
-        _frames = new List<AnimationFrame>();
+        Frames = new List<AnimationFrame>();
         _fps = fps;
     }
 
     public void AddFrame(AnimationFrame frame)
     {
-        _frames.Add(frame);
-        CurrentFrame = _frames[0];
+        Frames.Add(frame);
+        CurrentFrame = Frames[0];
     }
 
     public void AddFrames(List<AnimationFrame> frames)
     {
-        _frames.AddRange(frames);
+        Frames.AddRange(frames);
+        CurrentFrame = Frames[0];
     }
 
     public void Update(GameTime time)
     {
-        CurrentFrame = _frames[_counter];
+        CurrentFrame = Frames[Counter];
 
         _secondCounter += time.ElapsedGameTime.TotalSeconds;
         
         if (_secondCounter >= 1d / _fps)
         {
-            _counter++;
+            Counter++;
             _secondCounter = 0;
         }
 
-        if (_counter >= _frames.Count)
+        if (Counter >= Frames.Count)
         {
-            _counter = 0;
+            Counter = 0;
         }
+    }
+
+    public void Reset()
+    {
+        Counter = 0;
     }
 }

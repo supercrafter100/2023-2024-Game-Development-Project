@@ -30,7 +30,7 @@ public class PlayingState : GameState
 
     public override void OnDraw(SpriteBatch batch)
     {
-        _manager.MapManager.RenderTiles(batch);
+        _manager.MapManager.RenderMap(batch);
         _manager.Character.Draw(batch);
     }
 }

@@ -1,4 +1,5 @@
-﻿using GameDevProject.utility.statemachine;
+﻿using System;
+using GameDevProject.utility.statemachine;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace GameDevProject.Core.gameStates;

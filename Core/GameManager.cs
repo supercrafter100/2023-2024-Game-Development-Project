@@ -18,8 +18,8 @@ public class GameManager : StateMachine, IGameObject
         LogChanges = true;
         
         RootGame = game;
-        MapManager = new MapManager(RootGame.GraphicsDevice, RootGame.GraphicsDeviceManager);
-        Character = new Character(RootGame.Content.Load<Texture2D>("CharacterSheet"), this);
+        MapManager = new MapManager(this);
+        Character = new Character(this);
         
         AddState(new MainMenuState());
         AddState(new PlayingState(this));

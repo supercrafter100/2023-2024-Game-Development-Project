@@ -11,25 +11,32 @@ public class Tile: ICollidable
     private int _y;
     private int _w;
     private int _h;
-    private Color _color;
     private Texture2D _texture;
+    private Rectangle _offsetRectangle;
+
+    public bool IsTransparent = false;
     
     public Rectangle HitBox { get; set; }
 
-    public Tile(int x, int y, int width, int height, Color color, GraphicsDevice graphics)
+    public Tile(int x, int y, int width, int height, Texture2D texture, Rectangle offsetRectangle, bool transparent = false)
     {
         _x = x;
         _y = y;
         _w = width;
         _h = height;
-        _color = color;
-        _texture = new Texture2D(graphics, 1, 1);
-        _texture.SetData(new[] { _color });
-        HitBox = new Rectangle(_x, _y, _w, _h);
+        _texture = texture;
+        _offsetRectangle = offsetRectangle;
+        IsTransparent = transparent;
+        
+        HitBox = IsTransparent ? new Rectangle(0, 0, 0, 0) : new Rectangle(_x, _y, _w, _h);
     }
 
     public void Draw(SpriteBatch spriteBatch)
     {
-        spriteBatch.Draw(_texture, new Rectangle(_x, _y, _w, _h), Color.Yellow);
+        spriteBatch.Draw(_texture, new Rectangle(_x, _y, _w, _h), _offsetRectangle, Color.White);
+
+        Texture2D texture = new Texture2D(Game1.GetInstance().GraphicsDevice, 1, 1);
+        texture.SetData(new[] { Color.White });
+        //spriteBatch.Draw(texture, HitBox, Color.Yellow);
     }
 }

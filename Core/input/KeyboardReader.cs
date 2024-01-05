@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 namespace GameDevProject.Core.input;
@@ -18,6 +19,12 @@ public class KeyboardReader : IInputReader
         if (state.IsKeyDown(Keys.Right))
         {
             direction.X += 1;
+        }
+
+        if (state.IsKeyDown(Keys.Up) || state.IsKeyDown(Keys.Space))
+        {
+            Console.WriteLine("KEY DOWN!");
+            direction.Y += 1;
         }
 
         return direction;

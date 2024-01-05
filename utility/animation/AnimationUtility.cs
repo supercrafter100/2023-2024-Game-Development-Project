@@ -21,4 +21,17 @@ public class AnimationUtility
 
         return frames;
     }
+
+    public static List<AnimationFrame> GetFramesFromTexture(int rowOffset, int width,
+        int height, int numberOfFrames)
+    {
+        List<AnimationFrame> frames = new List<AnimationFrame>();
+
+        for (int x = 0; x < numberOfFrames; x++)
+        {
+            frames.Add(new AnimationFrame(new Rectangle(x * width, rowOffset, width, height)));
+        }
+
+        return frames;
+    }
 }
