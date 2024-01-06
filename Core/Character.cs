@@ -36,7 +36,7 @@ public class Character : IGameObject, IMovable, ICollidable
         _movementManager = new MovementManager(_game);
         
         InputReader = new KeyboardReader();
-        Velocity = new Vector2(1, 0);
+        Velocity = new Vector2(2, 0);
         Position = new Vector2(1, 1);
         _animationController = new MainCharacterAnimationController(_game);
         _animationController.Activate();

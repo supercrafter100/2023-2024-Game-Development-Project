@@ -21,7 +21,7 @@ public class GameManager : StateMachine, IGameObject
         MapManager = new MapManager(this);
         Character = new Character(this);
         
-        AddState(new MainMenuState());
+        AddState(new MainMenuState(this));
         AddState(new PlayingState(this));
         AddState(new DeathState());
     }
@@ -30,7 +30,7 @@ public class GameManager : StateMachine, IGameObject
     protected override void OnActivate()
     {
         // Go to the main menu
-        GoToState<PlayingState>();
+        GoToState<MainMenuState>();
         
         // Load in the maps
         MapManager.CreateLevelMap();
