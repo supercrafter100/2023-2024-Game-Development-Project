@@ -19,7 +19,24 @@ public class MovementManager
         Vector2 direction = movable.InputReader.ReadInput();
         
         // Movement in the horizontal axis
-        float horizontalDistanceToTravel = direction.X * movable.Velocity.X;
+        if (direction.X != 0)
+        {
+            movable.Velocity = new Vector2(movable.Velocity.X + 0.5f * direction.X, movable.Velocity.Y);
+        }
+
+        if (movable.Velocity.X != 0 && direction.X == 0)
+        {
+            Console.WriteLine(0.01f * (float)(movable.Velocity.X > 0 ? 1 : -1));
+            if (Math.Abs(movable.Velocity.X) < 0.1) movable.Velocity = new Vector2(0, movable.Velocity.Y);
+            else
+            {
+                movable.Velocity = new Vector2(movable.Velocity.X - (0.1f * (float)(movable.Velocity.X > 0 ? 1 : -1)), movable.Velocity.Y);
+            }
+        }
+
+        movable.Velocity = new Vector2(Math.Clamp(movable.Velocity.X, -4, 4), movable.Velocity.Y);
+
+        float horizontalDistanceToTravel = movable.Velocity.X;
         Vector2 futureHorizontalPosition = movable.Position + new Vector2(horizontalDistanceToTravel, 0);
         Rectangle futureHorizontalHitbox = new Rectangle((int)(_game.Character.HitBox.X +  + horizontalDistanceToTravel),
             _game.Character.HitBox.Y, _game.Character.HitBox.Width,
@@ -30,17 +47,21 @@ public class MovementManager
         {
             movable.Position = futureHorizontalPosition;
         }
+        else
+        {
+            movable.Velocity = new Vector2(movable.Velocity.X * -1f, movable.Velocity.Y);
+        }
         
         // Movement in the vertical axis
         // Increase the y velocity of our character, if it collides with something after this, we don't do anything and set the velocity back to 0
         if (direction.Y > 0 && _grounded)
         {
-            movable.Velocity = new Vector2(movable.Velocity.X, -5);
+            movable.Velocity = new Vector2(movable.Velocity.X, -9);
             _grounded = false;
         }
 
         
-        movable.Velocity = new Vector2(movable.Velocity.X, Math.Clamp(movable.Velocity.Y + 0.1f, -30, 80));
+        movable.Velocity = new Vector2(movable.Velocity.X, Math.Clamp(movable.Velocity.Y + 0.3f, -30, 80));
         
         float verticalDistanceToTravel = movable.Velocity.Y;
         Vector2 futureVerticalPosition = movable.Position + new Vector2(0, verticalDistanceToTravel);
