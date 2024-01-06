@@ -2,6 +2,7 @@
 using GameDevProject.Core.animations.mainCharacter;
 using GameDevProject.Core.input;
 using GameDevProject.Core.movement;
+using GameDevProject.UI;
 using GameDevProject.utility.animation;
 using GameDevProject.utility.collisions;
 using GameDevProject.utility.statemachine;
@@ -14,13 +15,19 @@ namespace GameDevProject.Core;
 public class Character : IGameObject, IMovable, ICollidable
 {
     public GameManager _game;
-    
-    private MainCharacterAnimationController _animationController;
+    public MainCharacterAnimationController AnimationController;
+    public CharacterCollissionManager CollisionManager;
     
     public Vector2 Position { get; set; }
     public Vector2 Velocity { get; set; }
+    
+    public int Lives = 3;
+    public int DamageCooldown = 0;
+    private int _flickerActive = 5;
+    private bool _flickerWait = false;
     public IInputReader InputReader { get; set; }
     private MovementManager _movementManager;
+    private HealthOverlay _overlay;
 
     public Rectangle HitBox
     {
@@ -34,12 +41,15 @@ public class Character : IGameObject, IMovable, ICollidable
     {
         _game = gameManager;
         _movementManager = new MovementManager(_game);
+        _overlay = new HealthOverlay(this);
+        
         
         InputReader = new KeyboardReader();
         Velocity = new Vector2(2, 0);
         Position = new Vector2(1, 1);
-        _animationController = new MainCharacterAnimationController(_game);
-        _animationController.Activate();
+        AnimationController = new MainCharacterAnimationController(_game);
+        AnimationController.Activate();
+        CollisionManager = new CharacterCollissionManager(this);
     }
     
     private void Move()
@@ -53,15 +63,32 @@ public class Character : IGameObject, IMovable, ICollidable
         Move();
         
         // Animation
-        _animationController.Update(time);
+        AnimationController.Update(time);
+        
+        // Game collisions
+        CollisionManager.Update(time);
     }
 
     public void Draw(SpriteBatch spriteBatch)
     {
         var rectangleTexture = new Texture2D(_game.RootGame.GraphicsDevice, 1, 1);
         rectangleTexture.SetData(new[] { Color.White });
-        //spriteBatch.Draw(rectangleTexture, HitBox, Color.Red);
         
-        _animationController.Draw(spriteBatch);
+        // If we are currently in a damaged state we want to flicker
+        if (DamageCooldown > 0 && _flickerActive > 0)
+        {
+            _flickerActive--;
+            if (_flickerActive == 0)
+            {
+                _flickerWait = !_flickerWait;
+                _flickerActive = 5;
+            }
+        }
+
+        if (!(DamageCooldown > 0 && _flickerWait == false))
+        {
+            AnimationController.Draw(spriteBatch);
+        }
+        _overlay.Draw(spriteBatch);
     }
 }

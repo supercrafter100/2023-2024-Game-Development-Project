@@ -21,8 +21,8 @@ public class MainCharacterAnimationController : StateMachine
         SpriteSheet = Game.RootGame.Content.Load<Texture2D>("character");
         
         AddState(new AttackState(this));
-        AddState(new HappyJumpAwardState());
-        AddState(new HurtState());
+        AddState(new HappyJumpAwardState(this));
+        AddState(new HurtState(this));
         AddState(new IdlingState(this));
         AddState(new RunningState(this));
     }
@@ -58,7 +58,7 @@ public class MainCharacterAnimationController : StateMachine
     {
         ActiveState?.OnUpdate(time);
 
-        if (ActiveState is AttackState) return; // Automatically switches back to a different state
+        if (ActiveState is AttackState || ActiveState is HurtState) return; // Automatically switches back to a different state
         
         // Check if left or right keys are pressed to do the walking animation
         if (Mouse.GetState().LeftButton == ButtonState.Pressed) 

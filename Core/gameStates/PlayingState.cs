@@ -26,6 +26,7 @@ public class PlayingState : GameState
     public override void OnUpdate(GameTime time)
     {
         _manager.Character.Update(time);
+        _manager.MapManager.Update(time);
     }
 
     public override void OnDraw(SpriteBatch batch)

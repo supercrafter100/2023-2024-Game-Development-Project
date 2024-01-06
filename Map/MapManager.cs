@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using GameDevProject.Core;
+using GameDevProject.Core.enemies;
 using GameDevProject.Core.gameStates;
 using GameDevProject.Map.levels;
 using GameDevProject.Map.tiles;
@@ -22,6 +23,8 @@ public class MapManager
     public readonly int TileHeight = 32;
 
     private readonly List<Tile> _tiles = new();
+    private readonly List<Enemy> _enemies = new();
+    
     private readonly TileFactory _tileFactory;
 
     private readonly List<ILevel> _levels = new();
@@ -64,6 +67,17 @@ public class MapManager
         }
     }
 
+    public void CreateEnemies()
+    {
+        _enemies.Clear();
+        _enemies.AddRange(ActiveLevel.Enemies);
+
+        foreach (var enemy in _enemies)
+        {
+            enemy.Activate();
+        }
+    }
+
     public void RenderMap(SpriteBatch batch)
     {
         
@@ -75,7 +89,21 @@ public class MapManager
         {
             tile.Draw(batch);
         }
+        
+        // Enemies
+        foreach (var enemy in _enemies)
+        {
+            enemy.Draw(batch);
+        }
     }
+
+    public void Update(GameTime time)
+    {
+        foreach (var enemy in _enemies)
+        {
+            enemy.Update(time);
+        }
+    } 
 
     #nullable enable
     public Tile? CollidesWithTerrain(Rectangle hitbox)
@@ -88,18 +116,23 @@ public class MapManager
         return _tiles.FindAll(tile => tile.HitBox.Intersects(hitbox));
     }
 
+    public List<Enemy> FindAllCollissionsWithEnemy(Rectangle hitbox)
+    {
+        return _enemies.FindAll(enemy => enemy.HitBox.Intersects(hitbox));
+    }
+
     public void GoToNextLevel()
     {
         int currentIndex = _levels.IndexOf(ActiveLevel);
-        ILevel? nextLevel = _levels[currentIndex + 1];
-
-        if (nextLevel == null)
+        if (currentIndex + 1 > _levels.Count - 1)
         {
             _game.GoToState<WinningState>();
             return;
         }
-
+        ILevel nextLevel = _levels[currentIndex + 1];
         ActiveLevel = nextLevel;
+        
         CreateLevelMap(); // Render map tiles again
+        CreateEnemies(); // Add enemies to our enemies list
     }
 }

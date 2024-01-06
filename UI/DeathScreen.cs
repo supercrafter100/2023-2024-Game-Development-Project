@@ -1,13 +1,11 @@
-﻿using System;
-using GameDevProject.Core;
-using GameDevProject.Core.gameStates;
+﻿using GameDevProject.Core;
 using GameDevProject.UI.elements;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace GameDevProject.UI;
 
-public class StartScreen : IGameObject
+public class DeathScreen : IGameObject
 {
     private GameManager _game;
     private SpriteFont _font;
@@ -15,9 +13,9 @@ public class StartScreen : IGameObject
     private Texture2D _plainTexture;
     
     private Text _titleText;
-    private Button _startbutton;
+    private Button _exitButton;
     
-    public StartScreen(GameManager game)
+    public DeathScreen(GameManager game)
     {
         _game = game;
         _plainTexture = new Texture2D(_game.RootGame.GraphicsDevice, 1, 1);
@@ -28,19 +26,19 @@ public class StartScreen : IGameObject
         // UI element initialization
         Vector2 titleTextPosition = new Vector2(_game.RootGame.GraphicsDeviceManager.PreferredBackBufferWidth / 2,
             _game.RootGame.GraphicsDeviceManager.PreferredBackBufferHeight / 4);
-        _titleText = new Text("Game Development Project", titleTextPosition, _font, 5);
+        _titleText = new Text("You Died!", titleTextPosition, _font, 5);
 
         Vector2 startButtonPosition = new Vector2(_game.RootGame.GraphicsDeviceManager.PreferredBackBufferWidth / 2,
             _game.RootGame.GraphicsDeviceManager.PreferredBackBufferHeight / 2);
-        _startbutton = new Button("Start", startButtonPosition, _font, _plainTexture, () =>
+        _exitButton = new Button("Exit", startButtonPosition, _font, _plainTexture, () =>
         {
-            _game.GoToState<PlayingState>();
+            System.Environment.Exit(0);
         },5);
     }
     
     public void Update(GameTime time)
     {
-        _startbutton.Update(time);
+        _exitButton.Update(time);
     }
 
     public void Draw(SpriteBatch spriteBatch)
@@ -50,6 +48,6 @@ public class StartScreen : IGameObject
 
         // UI elements
         _titleText.Draw(spriteBatch);
-        _startbutton.Draw(spriteBatch);
-    }   
+        _exitButton.Draw(spriteBatch);
+    }
 }

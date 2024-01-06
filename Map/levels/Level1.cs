@@ -1,4 +1,6 @@
-﻿using GameDevProject.Core;
+﻿using System.Collections.Generic;
+using GameDevProject.Core;
+using GameDevProject.Core.enemies;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -25,7 +27,7 @@ public class Level1 : ILevel
         { null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, TileMap.Tiles.DIRT_BOTTOM_LEFT, TileMap.Tiles.DIRT_BOTTOM_CENTER, TileMap.Tiles.GRASS_TOP_CENTER, TileMap.Tiles.GRASS_TOP_FLOATING_CENTER, TileMap.Tiles.GRASS_TOP_FLOATING_CENTER, TileMap.Tiles.GRASS_TOP_FLOATING_CENTER, TileMap.Tiles.GRASS_TOP_FLOATING_CENTER, TileMap.Tiles.GRASS_TOP_FLOATING_CENTER, TileMap.Tiles.GRASS_TOP_FLOATING_CENTER, TileMap.Tiles.GRASS_TOP_FLOATING_CENTER, TileMap.Tiles.GRASS_TOP_FLOATING_CENTER, TileMap.Tiles.GRASS_TOP_FLOATING_CENTER, TileMap.Tiles.GRASS_TOP_FLOATING_CENTER, TileMap.Tiles.GRASS_TOP_FLOATING_CENTER },
         { null, TileMap.Tiles.SMALL_ROCKS, TileMap.Tiles.SMALL_ROCKS, null, null, null, null, null, null, null, null, null, null, null, null, null, null, TileMap.Tiles.DIRT_MIDDLE_FLOATING_CENTER, null, null, null, null, null, null, TileMap.Tiles.DIRT_MIDDLE_FLOATING_CENTER, null, null, null, null },
         { TileMap.Tiles.GRASS_TOP_FLOATING_CENTER, TileMap.Tiles.GRASS_TOP_FLOATING_CENTER, TileMap.Tiles.GRASS_TOP_FLOATING_CENTER, TileMap.Tiles.GRASS_TOP_FLOATING_CENTER, TileMap.Tiles.GRASS_TOP_FLOATING_CENTER, TileMap.Tiles.GRASS_TOP_CENTER, TileMap.Tiles.GRASS_TOP_CENTER, TileMap.Tiles.GRASS_TOP_FLOATING_RIGHT, null, null, null, null, null, null, null, null, null, TileMap.Tiles.DIRT_MIDDLE_FLOATING_CENTER, null, null, null, null, null, null, TileMap.Tiles.DIRT_MIDDLE_FLOATING_CENTER, null, null, null, null },
-        { null, null, null, null, null, TileMap.Tiles.DIRT_MIDDLE_LEFT, TileMap.Tiles.DIRT_MIDDLE_RIGHT, null, null, null, null, null, null, null, null, null, null, TileMap.Tiles.DIRT_BOTTOM_FLOATING_CENTER, null, null, null, null, null, null, TileMap.Tiles.DIRT_BOTTOM_FLOATING_CENTER, null, null, TileMap.Tiles.SMALL_ROCKS, null },
+        { null, null, null, null, null, TileMap.Tiles.DIRT_MIDDLE_LEFT, TileMap.Tiles.DIRT_MIDDLE_RIGHT, null, null, null, null, null, null, null, null, null, null, TileMap.Tiles.DIRT_BOTTOM_FLOATING_CENTER, null, null, null, null, null, null, TileMap.Tiles.DIRT_BOTTOM_FLOATING_CENTER, null, null, TileMap.Tiles.SMALL_ROCKS, TileMap.Tiles.ENDING_GLOBE },
         { null, TileMap.Tiles.SMALL_PLANT, null, null, null, TileMap.Tiles.DIRT_MIDDLE_LEFT, TileMap.Tiles.DIRT_MIDDLE_RIGHT, null, TileMap.Tiles.GRASS_TOP_FLOATING_LEFT, TileMap.Tiles.GRASS_TOP_FLOATING_CENTER, TileMap.Tiles.GRASS_TOP_CENTER, TileMap.Tiles.GRASS_TOP_CENTER, TileMap.Tiles.GRASS_TOP_CENTER, TileMap.Tiles.GRASS_TOP_CENTER, TileMap.Tiles.GRASS_TOP_RIGHT, null, null, null, null, null, TileMap.Tiles.GRASS_TOP_LEFT, TileMap.Tiles.GRASS_TOP_RIGHT, null, null, null, null, null, TileMap.Tiles.GRASS_TOP_LEFT, TileMap.Tiles.GRASS_TOP_RIGHT },
         { TileMap.Tiles.GRASS_TOP_FLOATING_CENTER, TileMap.Tiles.GRASS_TOP_FLOATING_RIGHT, null, null, null, TileMap.Tiles.DIRT_MIDDLE_LEFT, TileMap.Tiles.DIRT_MIDDLE_RIGHT, null, null, null, TileMap.Tiles.DIRT_BOTTOM_LEFT, TileMap.Tiles.DIRT_BOTTOM_CENTER, TileMap.Tiles.DIRT_BOTTOM_CENTER, TileMap.Tiles.DIRT_BOTTOM_CENTER, TileMap.Tiles.DIRT_BOTTOM_RIGHT, null, null, null, null, null, TileMap.Tiles.DIRT_MIDDLE_LEFT, TileMap.Tiles.DIRT_MIDDLE_RIGHT, null, null, null, null, null, TileMap.Tiles.DIRT_MIDDLE_LEFT, TileMap.Tiles.DIRT_MIDDLE_RIGHT },
         { null, null, null, null, null, TileMap.Tiles.DIRT_BOTTOM_LEFT, TileMap.Tiles.DIRT_BOTTOM_RIGHT, null, null, null, null, null, null, null, null, null, null, null, TileMap.Tiles.GRASS_TOP_LEFT, TileMap.Tiles.GRASS_TOP_RIGHT, TileMap.Tiles.DIRT_MIDDLE_LEFT, TileMap.Tiles.DIRT_MIDDLE_RIGHT, null, null,  null, TileMap.Tiles.GRASS_TOP_LEFT, TileMap.Tiles.GRASS_TOP_RIGHT, TileMap.Tiles.DIRT_MIDDLE_LEFT, TileMap.Tiles.DIRT_MIDDLE_RIGHT },
@@ -34,13 +36,15 @@ public class Level1 : ILevel
     };
 
     public Vector2 SpawnLocation { get; set; } = new(1, 1);
-    public IGameObject[] Enemies { get; set; } = { };
+    public List<Enemy> Enemies { get; set; } = new();
     public Texture2D Background { get; set; }
 
     public Level1(GameManager game)
     {
         _game = game;
         Background = _game.RootGame.Content.Load<Texture2D>("background");
+
+        Enemies.Add(new Enemy1(_game, new Vector2(510, 750), new Vector2(920, 750)));
     }
     
     public void Update(GameTime time)

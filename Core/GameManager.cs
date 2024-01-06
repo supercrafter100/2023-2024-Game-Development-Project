@@ -23,8 +23,8 @@ public class GameManager : StateMachine, IGameObject
         
         AddState(new MainMenuState(this));
         AddState(new PlayingState(this));
-        AddState(new WinningState());
-        AddState(new DeathState());
+        AddState(new WinningState(this));
+        AddState(new DeathState(this));
     }
 
 
@@ -35,6 +35,9 @@ public class GameManager : StateMachine, IGameObject
         
         // Load in the maps
         MapManager.CreateLevelMap();
+        
+        // Load in the enemies
+        MapManager.CreateEnemies();
     }
 
     protected override void OnDeactivate()
