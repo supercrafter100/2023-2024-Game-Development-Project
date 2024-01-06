@@ -23,7 +23,6 @@ public class KeyboardReader : IInputReader
 
         if (state.IsKeyDown(Keys.Up) || state.IsKeyDown(Keys.Space))
         {
-            Console.WriteLine("KEY DOWN!");
             direction.Y += 1;
         }
 

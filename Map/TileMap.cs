@@ -19,7 +19,7 @@ public class TileMap
         SMALL_PLANT = 0,
         FLOATING_GRASS_ALONE = 1,
         SMALL_ROCKS = 2,
-        WATER_GLOBE = 3,
+        ENDING_GLOBE = 3,
         SIGN_ARROW_RIGHT = 4,
         SIGN_ARROW_LEFT = 5,
         SIGN_ARROW_UP = 6,
@@ -38,14 +38,8 @@ public class TileMap
         DIRT_BOTTOM_LEFT = 48,
         DIRT_BOTTOM_CENTER = 49,
         DIRT_BOTTOM_RIGHT = 50,
-        DIRT_BOTTOM_FLOATING_CENTER = 51
+        DIRT_BOTTOM_FLOATING_CENTER = 51,
     }
-
-    public Tiles[] TransparentTiles = new[]
-    {
-        Tiles.SMALL_PLANT, Tiles.SMALL_ROCKS, Tiles.SIGN_ARROW_UP, Tiles.SIGN_ARROW_LEFT, Tiles.SIGN_ARROW_RIGHT,
-        Tiles.WATER_GLOBE
-    };
 
     public TileMap(Texture2D texture)
     {

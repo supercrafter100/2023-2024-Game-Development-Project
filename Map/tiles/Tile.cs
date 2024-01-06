@@ -28,15 +28,11 @@ public class Tile: ICollidable
         _offsetRectangle = offsetRectangle;
         IsTransparent = transparent;
         
-        HitBox = IsTransparent ? new Rectangle(0, 0, 0, 0) : new Rectangle(_x, _y, _w, _h);
+        HitBox = new Rectangle(_x, _y, _w, _h);
     }
 
     public void Draw(SpriteBatch spriteBatch)
     {
         spriteBatch.Draw(_texture, new Rectangle(_x, _y, _w, _h), _offsetRectangle, Color.White);
-
-        Texture2D texture = new Texture2D(Game1.GetInstance().GraphicsDevice, 1, 1);
-        texture.SetData(new[] { Color.White });
-        //spriteBatch.Draw(texture, HitBox, Color.Yellow);
     }
 }

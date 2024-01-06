@@ -8,9 +8,6 @@ namespace GameDevProject;
 
 public class Game1 : Game
 {
-
-    public static Game1 instance;
-    
     public GraphicsDeviceManager GraphicsDeviceManager;
     private SpriteBatch _spriteBatch;
 
@@ -18,8 +15,6 @@ public class Game1 : Game
 
     public Game1()
     {
-        instance = this;
-        
         GraphicsDeviceManager = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
@@ -28,12 +23,6 @@ public class Game1 : Game
         GraphicsDeviceManager.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
         GraphicsDeviceManager.IsFullScreen = true;
         GraphicsDeviceManager.HardwareModeSwitch = false;
-    }
-
-    // TODO: Don't have this
-    public static Game1 GetInstance()
-    {
-        return instance;
     }
 
     protected override void Initialize()

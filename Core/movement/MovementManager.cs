@@ -35,7 +35,6 @@ public class MovementManager
         // Increase the y velocity of our character, if it collides with something after this, we don't do anything and set the velocity back to 0
         if (direction.Y > 0 && _grounded)
         {
-            Console.WriteLine("JUMP");
             movable.Velocity = new Vector2(movable.Velocity.X, -5);
             _grounded = false;
         }
@@ -54,7 +53,7 @@ public class MovementManager
         {
             movable.Position = futureVerticalPosition;
         }
-        else if (futureVerticalPosition.Y < 0)
+        else if (futureVerticalPosition.Y < 0 || movable.Velocity.Y < 0)
         {
             movable.Velocity = new Vector2(movable.Velocity.X, 0);
         }
