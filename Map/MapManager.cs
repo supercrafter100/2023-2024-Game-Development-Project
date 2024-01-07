@@ -39,8 +39,8 @@ public class MapManager
         TileHeight = _game.RootGame.GraphicsDeviceManager.PreferredBackBufferHeight / _verticalTiles;
         
         // Registering levels
-        _levels.Add(new Level2(_game));
         _levels.Add(new Level1(_game));
+        _levels.Add(new Level2(_game));
 
         // Setting active level
         ActiveLevel = _levels[0];
