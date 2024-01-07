@@ -13,7 +13,7 @@ public class TileFactory
     public TileMap.Tiles[] TransparentTiles = new[]
     {
         TileMap.Tiles.SMALL_PLANT, TileMap.Tiles.SMALL_ROCKS, TileMap.Tiles.SIGN_ARROW_UP, TileMap.Tiles.SIGN_ARROW_LEFT, TileMap.Tiles.SIGN_ARROW_RIGHT,
-        TileMap.Tiles.ENDING_GLOBE
+        TileMap.Tiles.ENDING_GLOBE, TileMap.Tiles.PURPLE_SMALL_TRUNK, TileMap.Tiles.PURPLE_GRAVESTONE
     };
 
     public TileFactory(GameManager game)

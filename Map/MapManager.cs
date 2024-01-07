@@ -39,6 +39,7 @@ public class MapManager
         TileHeight = _game.RootGame.GraphicsDeviceManager.PreferredBackBufferHeight / _verticalTiles;
         
         // Registering levels
+        _levels.Add(new Level2(_game));
         _levels.Add(new Level1(_game));
 
         // Setting active level
@@ -76,6 +77,11 @@ public class MapManager
         {
             enemy.Activate();
         }
+    }
+
+    public void LoadMapParameters()
+    {
+        _game.Character.Position = ActiveLevel.SpawnLocation;
     }
 
     public void RenderMap(SpriteBatch batch)
@@ -134,5 +140,6 @@ public class MapManager
         
         CreateLevelMap(); // Render map tiles again
         CreateEnemies(); // Add enemies to our enemies list
+        LoadMapParameters(); // Other misc stuff
     }
 }

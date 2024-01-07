@@ -35,7 +35,7 @@ public class Level1 : ILevel
         { TileMap.Tiles.GRASS_TOP_CENTER, TileMap.Tiles.GRASS_TOP_CENTER, TileMap.Tiles.GRASS_TOP_CENTER, TileMap.Tiles.GRASS_TOP_CENTER, TileMap.Tiles.GRASS_TOP_CENTER, TileMap.Tiles.GRASS_TOP_CENTER, TileMap.Tiles.GRASS_TOP_CENTER, TileMap.Tiles.GRASS_TOP_CENTER, TileMap.Tiles.GRASS_TOP_CENTER, TileMap.Tiles.GRASS_TOP_CENTER, TileMap.Tiles.GRASS_TOP_CENTER, TileMap.Tiles.GRASS_TOP_CENTER, TileMap.Tiles.GRASS_TOP_CENTER, TileMap.Tiles.GRASS_TOP_CENTER, TileMap.Tiles.GRASS_TOP_CENTER, TileMap.Tiles.GRASS_TOP_CENTER, TileMap.Tiles.GRASS_TOP_CENTER, TileMap.Tiles.GRASS_TOP_CENTER, TileMap.Tiles.GRASS_TOP_CENTER, TileMap.Tiles.GRASS_TOP_CENTER, TileMap.Tiles.GRASS_TOP_CENTER, TileMap.Tiles.GRASS_TOP_CENTER, TileMap.Tiles.GRASS_TOP_CENTER, TileMap.Tiles.GRASS_TOP_CENTER, TileMap.Tiles.GRASS_TOP_CENTER, TileMap.Tiles.GRASS_TOP_CENTER, TileMap.Tiles.GRASS_TOP_CENTER, TileMap.Tiles.GRASS_TOP_CENTER, TileMap.Tiles.GRASS_TOP_CENTER },
     };
 
-    public Vector2 SpawnLocation { get; set; } = new(1, 1);
+    public Vector2 SpawnLocation { get; set; } = new(1, 280);
     public List<Enemy> Enemies { get; set; } = new();
     public Texture2D Background { get; set; }
 
@@ -45,15 +45,6 @@ public class Level1 : ILevel
         Background = _game.RootGame.Content.Load<Texture2D>("background");
 
         Enemies.Add(new Enemy1(_game, new Vector2(510, 750), new Vector2(920, 750)));
-    }
-    
-    public void Update(GameTime time)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void Draw(SpriteBatch spriteBatch)
-    {
-        throw new System.NotImplementedException();
+        Enemies.Add(new Enemy1(_game, new Vector2(1300, 345), new Vector2(1650, 345)));
     }
 }

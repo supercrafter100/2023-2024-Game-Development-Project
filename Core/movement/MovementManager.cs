@@ -26,11 +26,10 @@ public class MovementManager
 
         if (movable.Velocity.X != 0 && direction.X == 0)
         {
-            Console.WriteLine(0.01f * (float)(movable.Velocity.X > 0 ? 1 : -1));
-            if (Math.Abs(movable.Velocity.X) < 0.1) movable.Velocity = new Vector2(0, movable.Velocity.Y);
+            if (Math.Abs(movable.Velocity.X) < 0.2) movable.Velocity = new Vector2(0, movable.Velocity.Y);
             else
             {
-                movable.Velocity = new Vector2(movable.Velocity.X - (0.1f * (float)(movable.Velocity.X > 0 ? 1 : -1)), movable.Velocity.Y);
+                movable.Velocity = new Vector2(movable.Velocity.X - (0.2f * (float)(movable.Velocity.X > 0 ? 1 : -1)), movable.Velocity.Y);
             }
         }
 
@@ -49,7 +48,7 @@ public class MovementManager
         }
         else
         {
-            movable.Velocity = new Vector2(movable.Velocity.X * -1f, movable.Velocity.Y);
+            movable.Velocity = new Vector2(movable.Velocity.X * -.5f, movable.Velocity.Y);
         }
         
         // Movement in the vertical axis

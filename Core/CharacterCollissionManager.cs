@@ -64,6 +64,20 @@ public class CharacterCollissionManager
                 enemy.Dead = true;
                 return;
             }
+
+            if (enemy is Enemy2 enemy2)
+            {
+                if (enemy.ActiveState is not DeathState) enemy2.GoToState<animations.enemy2.DeathState>();
+                enemy.Dead = true;
+                return;
+            }
+
+            if (enemy is Enemy3 enemy3)
+            {
+                if (enemy.ActiveState is not DeathState) enemy3.GoToState<animations.enemy3.DeathState>();
+                enemy.Dead = true;
+                return;
+            }
         }
     }
 }

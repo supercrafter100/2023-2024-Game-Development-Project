@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GameDevProject.Map.levels;
 
-public interface ILevel : IGameObject
+public interface ILevel
 {
     public TileMap.Tiles?[,] GameMap { get; set; }
     public Vector2 SpawnLocation { get; set; }

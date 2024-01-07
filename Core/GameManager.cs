@@ -38,6 +38,9 @@ public class GameManager : StateMachine, IGameObject
         
         // Load in the enemies
         MapManager.CreateEnemies();
+        
+        // Other misc map stuff
+        MapManager.LoadMapParameters();
     }
 
     protected override void OnDeactivate()
